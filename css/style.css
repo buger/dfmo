@@ -82,6 +82,7 @@ html, body {
 .info .about .text {
     font-size: 12px;
     height: 220px;
+    border-bottom: 1px solid #cecece;
 }
 
 .info .about .text p {
@@ -92,6 +93,7 @@ html, body {
 .info .buttons {
     margin-top: 10px;
 }
+
 
 .button {
     background: url('../images/button_bg.jpg');
