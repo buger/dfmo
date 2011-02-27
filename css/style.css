@@ -1,0 +1,225 @@
+html, body {
+    height: 100%;
+    color: #5b5b5b;
+}
+
+#float {
+    width: 1px;
+    height: 50%;
+    margin-bottom: -400px;
+    float: left;
+}
+
+#container {
+    margin: 0 auto;
+    position: relative;
+    text-align: left;
+    width: 1003px;
+    height: auto;
+    clear: left;
+    background: #c2c2c2 url('../images/inner_bg.png') top left repeat-x;
+    
+    -webkit-border-radius: 55px;
+    -webkit-border-top-right-radius: 10px;
+    -webkit-border-bottom-left-radius: 10px;
+    -moz-border-radius: 55px;
+    -moz-border-radius-topright: 10px;
+    -moz-border-radius-bottomleft: 10px;
+    border-radius: 55px;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    
+    -moz-box-shadow: 0 0 20px 5px #111;
+    -webkit-box-shadow: 0 0 20px 5px #111;
+    box-shadow: 0 0 20px 5px #111;
+    
+    position: relative;
+
+}
+
+#bg {
+    background: url('../images/bg_1.jpg') center;
+    height: auto;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    
+    position: relative;
+}
+
+#content {
+    padding-left: 58px;
+    padding-right: 54px;
+    padding-bottom: 52px;
+    padding-top: 40px;
+    
+    overflow: hidden;
+}
+
+.info {
+    width: 894px;
+}
+
+.info .picture {
+    float: left;
+    width: 447px;
+    height: 400px;
+    margin-left: 0px;
+    background: url('../images/logo.png') center no-repeat;
+}
+
+.info .about {
+    float: left;
+    width: 447px;
+    height: 400px;
+    padding-top: 12px;
+}
+
+.info .about h1 {
+    font-size: 25px;
+    text-transform: uppercase;
+}
+
+.info .about .text {
+    font-size: 12px;
+    height: 220px;
+}
+
+.info .about .text p {
+    font-size: 12px;
+    margin-top: 20px;
+}
+
+.info .buttons {
+    margin-top: 10px;
+}
+
+.button {
+    background: url('../images/button_bg.jpg');
+    width: 114px;
+    padding: 8px 0px;
+    text-align: center;
+    display: inline-block;
+    margin-right: 40px;
+    vertical-align: middle;
+    
+    -webkit-border-radius: 7px;
+    -moz-border-radius: 7px;
+    border-radius: 7px;
+    
+    font-size: 16px;
+    color: white;
+    font-weight: bold;
+    
+    cursor: pointer;
+}
+
+.social {
+    margin-top: 28px;
+}
+
+.social a {
+    text-indent: -99999px;
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    margin-right: 17px;
+    cursor: pointer;
+    
+    background: url(../images/social_icons.png);
+}
+
+.social .digg:hover { background-position: 0 0; width: 24px; height: 24px; } 
+.social .digg { background-position: 0 -74px; width: 24px; height: 24px; } 
+.social .facebook:hover { background-position: 0 -148px; width: 24px; height: 24px; } 
+.social .facebook { background-position: 0 -222px; width: 24px; height: 24px; } 
+.social .flickr:hover { background-position: 0 -296px; width: 24px; height: 24px; } 
+.social .flickr { background-position: 0 -370px; width: 24px; height: 24px; } 
+.social .lastfm:hover { background-position: 0 -444px; width: 24px; height: 24px; } 
+.social .lastfm { background-position: 0 -518px; width: 24px; height: 24px; } 
+.social .myspace:hover { background-position: 0 -592px; width: 24px; height: 24px; } 
+.social .myspace { background-position: 0 -666px; width: 24px; height: 24px; } 
+.social .twitter:hover { background-position: 0 -740px; width: 24px; height: 24px; } 
+.social .twitter { background-position: 0 -814px; width: 24px; height: 24px; } 
+.social .youtube:hover { background-position: 0 -888px; width: 24px; height: 24px; } 
+.social .youtube { background-position: 0 -962px; width: 24px; height: 24px; } 
+
+.contacts {
+    margin-right: 0;
+}
+
+a#back {
+    position: absolute;
+    left: 45px;
+    top: 40px;
+    width: 28px;
+    height: 25px;
+    background: url(../images/back.png);
+    background-position: 0 -75px;
+    cursor: pointer;
+}
+
+a#back:hover {
+    background-position: 0 0;
+}
+
+#companies {
+    clear: both;
+    width: 894px;
+    
+    border: 1px solid #aaa;
+    border-radius: 7px;
+    position: relative;
+}
+
+#companies .container {
+    padding-top: 20px;
+    padding-left: 26px;
+    
+    width: 100%;
+}
+
+#companies_title {
+    position: absolute;
+    left: 26px;
+    top: -8px;
+    height: 15px;
+    width: 274px;
+    background: url(../images/companies_title.png) top left;
+}
+
+.company {
+    float: left;
+    
+    width: 133px;
+    height: 75px;
+    
+    margin-right: 8px;
+}
+
+.company .image {
+    width: 132px;
+    height: 44px;
+    -webkit-border-radius: 7px;
+    -moz-border-radius: 7px;
+    border-radius: 7px;
+    
+    -moz-box-shadow: 5px 5px 5px #888;
+    -webkit-box-shadow: 1px 1px 10px #888;
+    box-shadow: 5px 5px 5px #888;
+    
+    cursor: pointer;
+}
+
+.company .title {
+    color: #757575;
+    padding-top: 7px;
+    font-size: 11px;
+    text-align: center;
+}
+
+#copyright {
+    position: absolute;
+    bottom: 20px;
+    right: 80px;
+    font-size: 10px;
+}
