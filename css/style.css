@@ -28,6 +28,8 @@ html, body {
     border-radius: 55px;
     border-top-right-radius: 10px;
     border-bottom-left-radius: 10px;
+
+    behavior: url(border-radius.htc);
     
     -moz-box-shadow: 0 0 10px 5px #111;
     -webkit-box-shadow: 0 0 10px 5px #111;
@@ -106,6 +108,8 @@ html, body {
     -moz-border-radius: 7px;
     border-radius: 7px;
     
+    behavior: url(border-radius.htc);
+    
     font-size: 16px;
     color: white;
     font-weight: bold;
@@ -167,7 +171,13 @@ a#back:hover {
     width: 894px;
     
     border: 1px solid #aaa;
+    
+    -webkit-border-radius: 7px;
+    -moz-border-radius: 7px;
     border-radius: 7px;
+
+    behavior: url(border-radius.htc);
+
     position: relative;
 }
 
@@ -202,6 +212,8 @@ a#back:hover {
     -webkit-border-radius: 7px;
     -moz-border-radius: 7px;
     border-radius: 7px;
+    
+    behavior: url(border-radius.htc);
     
     -moz-box-shadow: 1px 1px 3px #888;
     -webkit-box-shadow: 1px 1px 3px #888;
