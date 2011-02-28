@@ -216,6 +216,7 @@ a#back:hover {
     border-radius: 7px;
     
     behavior: url(PIE.htc);
+    -pie-lazy-init:true; 
     
     -moz-box-shadow: 1px 1px 3px #888;
     -webkit-box-shadow: 1px 1px 3px #888;
