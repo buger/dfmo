@@ -1,0 +1,24 @@
+application: dfmo-group
+version: static
+runtime: python
+api_version: 1
+
+handlers:
+- url: /css
+  static_dir: css
+
+- url: /js
+  static_dir: js
+
+- url: /images
+  static_dir: images
+
+- url: /PIE.htc
+  static_files: PIE.htc
+  upload: PIE.htc
+  mime_type: text/x-component
+
+- url: /
+  static_files: index.html
+  upload: index.html
+

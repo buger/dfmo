@@ -25,7 +25,7 @@ html, body {
     -moz-border-radius: 55px;
     -moz-border-radius-topright: 10px;
     -moz-border-radius-bottomleft: 10px;
-    border-radius: 55px;
+    border-radius: 55px 10px 55px 10px;    
     border-top-right-radius: 10px;
     border-bottom-left-radius: 10px;
 
