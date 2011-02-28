@@ -29,7 +29,7 @@ html, body {
     border-top-right-radius: 10px;
     border-bottom-left-radius: 10px;
 
-    behavior: url(border-radius.htc);
+    behavior: url(PIE.htc);
     
     -moz-box-shadow: 0 0 10px 5px #111;
     -webkit-box-shadow: 0 0 10px 5px #111;
@@ -110,7 +110,7 @@ html, body {
     -moz-border-radius: 7px;
     border-radius: 7px;
     
-    behavior: url(border-radius.htc);
+    behavior: url(PIE.htc);
     
     font-size: 16px;
     color: white;
@@ -178,7 +178,7 @@ a#back:hover {
     -moz-border-radius: 7px;
     border-radius: 7px;
 
-    behavior: url(border-radius.htc);
+    behavior: url(PIE.htc);
 
     position: relative;
 }
@@ -215,7 +215,7 @@ a#back:hover {
     -moz-border-radius: 7px;
     border-radius: 7px;
     
-    behavior: url(border-radius.htc);
+    behavior: url(PIE.htc);
     
     -moz-box-shadow: 1px 1px 3px #888;
     -webkit-box-shadow: 1px 1px 3px #888;
