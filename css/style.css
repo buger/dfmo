@@ -79,6 +79,7 @@ html, body {
 .info .about h1 {
     font-size: 25px;
     text-transform: uppercase;
+    font-weight: bold;
 }
 
 .info .about .text {
@@ -121,6 +122,7 @@ html, body {
 
 .social {
     margin-top: 28px;
+    text-align: center;
 }
 
 .social a {
@@ -235,6 +237,6 @@ a#back:hover {
 #copyright {
     position: absolute;
     bottom: 20px;
-    right: 80px;
+    right: 100px;
     font-size: 10px;
 }
