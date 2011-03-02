@@ -133,10 +133,15 @@ class ServeHandler(blobstore_handlers.BlobstoreDownloadHandler):
         if not blobstore.get(blob_key):
             self.error(404)
         else:
-            self.response.headers.add_header("Expires", "Thu, 01 Dec 2020 16:00:00 GMT")
-            self.response.headers["Cache-Control"] = "public"
+            if self.request.headers.has_key('If-Modified-Since'):
+                self.response.headers["Content-Type"] = blobstore.BlobInfo.get(blob_key).content_type
+                self.error(304)
+            else:
+                self.response.headers['Last-Modified'] = "Wed, 26 May 1987 21:21:54 GMT"
+                self.response.headers.add_header("Expires", "Thu, 01 Dec 2021 16:00:00 GMT")
+                self.response.headers["Cache-Control"] = "max-age=315360000"
 
-            self.send_blob(blobstore.BlobInfo.get(blob_key), save_as=True)
+                self.send_blob(blobstore.BlobInfo.get(blob_key), save_as=True)
 
 
 re_image = re.compile('image\/')

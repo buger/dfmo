@@ -3,6 +3,8 @@ version: dynamic
 runtime: python
 api_version: 1
 
+default_expiration: "10d"
+
 handlers:
 - url: /css
   static_dir: css
