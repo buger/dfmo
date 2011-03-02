@@ -155,11 +155,16 @@ $(document).ready(function(){
                     var percent = evt.loaded/evt.total*100;
                     $('#progress').html('Progress '+parseInt(percent)+'%');
                 }, false);
+
+                xhr.onreadystatechange = function(){
+                    if (xhr.readyState === 4) {
+                        $('#progress').html('Files uploaded!');
+                    }
+                }
                 
                 $('#progress').html('Uploading files...');
 
                 xhr.open('POST', urls[0], true);
-
                
                 if (window.FormData) {
                     var f = new FormData();

@@ -124,8 +124,8 @@ class UploadURLsHandler(AppHandler):
 
 class UploadHandler(blobstore_handlers.BlobstoreUploadHandler):
     def post(self):
-        upload_files = self.get_uploads()
-        self.redirect('/')
+        self.error(301)
+
 
 class ServeHandler(blobstore_handlers.BlobstoreDownloadHandler):
     def get(self, blob_key):
@@ -135,11 +135,12 @@ class ServeHandler(blobstore_handlers.BlobstoreDownloadHandler):
         else:
             if self.request.headers.has_key('If-Modified-Since'):
                 self.response.headers["Content-Type"] = blobstore.BlobInfo.get(blob_key).content_type
+                self.response.headers["Cache-Control"] = "public, max-age=315360000"
                 self.error(304)
             else:
                 self.response.headers['Last-Modified'] = "Wed, 26 May 1987 21:21:54 GMT"
                 self.response.headers.add_header("Expires", "Thu, 01 Dec 2021 16:00:00 GMT")
-                self.response.headers["Cache-Control"] = "max-age=315360000"
+                self.response.headers["Cache-Control"] = "public, max-age=315360000"
 
                 self.send_blob(blobstore.BlobInfo.get(blob_key), save_as=True)
 
