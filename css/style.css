@@ -4,7 +4,7 @@ html, body {
 }
 
 html {
-    background: url('../images/bg_1.jpg') center;
+    background: rgba(0,0,0,0.7) url('../images/bg_1.jpg') center;
     position: relative;
 }
 
