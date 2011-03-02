@@ -25,7 +25,17 @@ from models import *
 
 class AppHandler(webapp.RequestHandler):
     def guess_lang(self):
-        os.environ['i18n_lang'] = 'en'
+        lang = self.request.get('lang')
+
+        if lang:
+            if lang != 'en' and lang != 'ru':
+                lang = 'en'
+
+            os.environ['i18n_lang'] = lang
+        else:
+            os.environ['i18n_lang'] = 'ru'
+
+        return os.environ['i18n_lang']
 
     def render_template(self, name, data = None):
         self.guess_lang()
@@ -37,6 +47,8 @@ class AppHandler(webapp.RequestHandler):
 
         if not data.has_key('admin'):
             data['admin'] = False
+
+        data['lang'] = os.environ['i18n_lang']
 
         html = template.render(path, data)
 
@@ -59,7 +71,9 @@ class AdminPage(AppHandler):
 
 class MainPage(AppHandler):
     def get(self):
-        cache = memcache.get('home_page')
+        key = "home_page_"+self.guess_lang()
+
+        cache = memcache.get(key)
 
         if cache:
             self.response.out.write(cache)
@@ -67,7 +81,7 @@ class MainPage(AppHandler):
             companies = Company.all().order("__key__").fetch(100)
             html = self.render_template("index.html", {'companies': companies})
 
-            memcache.set('home_page', html)
+            memcache.set(key, html)
 
 
 class AddCompany(AppHandler):
@@ -79,11 +93,11 @@ class AddCompany(AppHandler):
 
 class AdminUpdate(AppHandler):
     def post(self):
-        memcache.delete('home_page')
-
         language = self.request.get('language')
         messages = json.loads(self.request.get('messages'))
         files = json.loads(self.request.get('files'))
+
+        memcache.delete('home_page_'+language)
 
         for key, msg in messages.items():
             key_name = key+language

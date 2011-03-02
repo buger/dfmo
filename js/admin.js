@@ -68,7 +68,6 @@ $(document).ready(function(){
 
     $('#save_page').live('click', function() {
         this.value = 'Saving...'
-        this.disabled = true;
 
         var messages = {};
         var files = {}

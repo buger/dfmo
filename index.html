@@ -1,9 +1,9 @@
 <!DOCTYPE HTML>
-<html>
+<html lang="{{lang}}">
 	<head>
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
-        <meta http-equiv="content-language" content="en">
+        <meta http-equiv="content-language" content="{{lang}}">
 
         <link rel="shortcut icon" type="image/png" href="/favicon.png" />
 
@@ -27,6 +27,12 @@
             <div id="float"></div>
             <div id="container">
                 <div id="content">
+                    {% if admin %}
+                    <div id="language">
+                        <a href="?lang=en" title="English version" class="en{% ifequal lang 'ru'%}_inactive{% endifequal %}"></a>
+                        <a href="?lang=ru" title="Русская версия" class="ru{% ifequal lang 'en'%}_inactive{% endifequal %}"></a>
+                    </div>
+                    {% endif %}
                     <a id="back" style="display: none"></a>
                     <div class="info home">
                         <div class="picture editable_image" style="background-image: url('{{ "logo_home"|file_url }}')"></div>

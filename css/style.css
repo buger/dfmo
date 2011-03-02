@@ -256,3 +256,40 @@ a#back:hover {
     font-size: 10px;
 }
 
+#language {
+    position: absolute;
+
+    right: 40px;
+    top: 20px;
+
+    background: url(../images/lang_line.png) center no-repeat;
+
+    background-position: 20px -6px;
+    cursor: default;
+}
+
+#language a {
+    height: 16px;
+    width: 13px;
+    display: inline-block;
+    
+    background: url(../images/lang_flags.png) no-repeat;
+
+    margin-right: 15px;
+}
+
+#language .ru {
+    background-position: 0 0;
+}
+
+#language .ru_inactive {
+    background-position: 0 -63px;
+}
+
+#language .en {
+    background-position: 0 -126px;
+}
+
+#language .en_inactive {
+    background-position: 0 -189px;
+}
