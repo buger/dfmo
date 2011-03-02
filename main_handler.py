@@ -38,7 +38,11 @@ class AppHandler(webapp.RequestHandler):
         if not data.has_key('admin'):
             data['admin'] = False
 
-        self.response.out.write(template.render(path, data))
+        html = template.render(path, data)
+
+        self.response.out.write(html)
+
+        return html
 
 
     def render_json(self, data):
@@ -55,9 +59,15 @@ class AdminPage(AppHandler):
 
 class MainPage(AppHandler):
     def get(self):
-        companies = Company.all().order("__key__").fetch(100)
+        cache = memcache.get('home_page')
 
-        self.render_template("index.html", {'companies': companies})
+        if cache:
+            self.response.out.write(cache)
+        else:
+            companies = Company.all().order("__key__").fetch(100)
+            html = self.render_template("index.html", {'companies': companies})
+
+            memcache.set('home_page', html)
 
 
 class AddCompany(AppHandler):
@@ -69,6 +79,8 @@ class AddCompany(AppHandler):
 
 class AdminUpdate(AppHandler):
     def post(self):
+        memcache.delete('home_page')
+
         language = self.request.get('language')
         messages = json.loads(self.request.get('messages'))
         files = json.loads(self.request.get('files'))
@@ -121,6 +133,9 @@ class ServeHandler(blobstore_handlers.BlobstoreDownloadHandler):
         if not blobstore.get(blob_key):
             self.error(404)
         else:
+            self.response.headers.add_header("Expires", "Thu, 01 Dec 2020 16:00:00 GMT")
+            self.response.headers["Cache-Control"] = "public"
+
             self.send_blob(blobstore.BlobInfo.get(blob_key), save_as=True)
 
 
