@@ -45,6 +45,11 @@ function setImageUrl(node, src) {
 }
 
 $(document).ready(function(){    
+    if (!window.navigator.userAgent.match(/(Chrome|Mozilla)/)) {
+        $('#admin-panel').html('Your browser is not supported. Use Chrome or Firefox');
+        return false;
+    }
+
     $('html').addClass('admin');
 
     $('.editable').each(function() {
@@ -100,7 +105,7 @@ $(document).ready(function(){
     });    
     
     $('#add_company').live('click', function() {
-        if (confirm('Please save your changes, before adding new Company. Page will be reloaded')) {
+        if (confirm('Please save your changes, before adding new Company. Page will be reloaded. Continue?')) {
             return true;
         } else {
             return false;
