@@ -226,9 +226,11 @@ a#back:hover {
     -moz-border-radius: 7px;
     border-radius: 7px;
     
-    max-height: 50px;
-    max-width: 133px;
-    
+    background: rgba(0,0,0,0) top left no-repeat;
+
+    height: 41px;
+    width: 132px;
+
     behavior: url(PIE.htc);
     -pie-lazy-init:true; 
     
@@ -237,6 +239,8 @@ a#back:hover {
     box-shadow: 1px 1px 3px #888;
     
     cursor: pointer;
+
+    position: relative;
 }
 
 .company .title {

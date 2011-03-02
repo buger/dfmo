@@ -80,8 +80,9 @@
                         <div id="companies_title"></div>
                         <div class="container">
                         {% for company in companies %}
-                            <div class="company" data-index="{{company.key.id}}">
-                                <img class="image editable_image" src='{{ "small_logo_"|cat:company.key.id|file_url }}' data-image-filter='{"width": 200}' />
+                        <div class="company" data-index="{{company.key.id}}">
+                            <div class="image editable_image" style="background-image:url({{ "small_logo_"|cat:company.key.id|file_url }})" data-image-filter='{"width": 200}'>
+                            </div>
                                 <div class="title editable">{{"Company "|cat:company.key.id|cat:" Title"|i18n:admin}}</div>
                             </div>
                         {% endfor %}

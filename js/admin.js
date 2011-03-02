@@ -80,7 +80,6 @@ $(document).ready(function(){
 
             if (file_id) {                                
                 files[file_id] = getImageUrl(this);
-                console.log(files[file_id]);
             }
         });        
 
@@ -123,7 +122,6 @@ $(document).ready(function(){
                 }
             }
         } catch(e) {
-            console.error(image);
         }
 
         var offset = image.offset();
@@ -140,7 +138,7 @@ $(document).ready(function(){
                 .css({top: offset.top-16, left:offset.left});
         } else {
             link.appendTo(image)
-                .css({top: 20, left:20});
+                .css({top: -16, left:0});
         }
     });
     
