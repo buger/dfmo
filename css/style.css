@@ -3,6 +3,11 @@ html, body {
     color: #5b5b5b;
 }
 
+html {
+    background: url('../images/bg_1.jpg') center;
+    position: relative;
+}
+
 #float {
     width: 1px;
     height: 50%;
@@ -36,16 +41,13 @@ html, body {
     box-shadow: 0 0 10px 5px #111;
     
     position: relative;
-
 }
 
 #bg {
-    background: url('../images/bg_1.jpg') center;
-    height: auto;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    
+    height: 100%; 
     position: relative;
+    padding-top: 20px;
+    padding-bottom: 90px;
 }
 
 #content {
@@ -66,7 +68,11 @@ html, body {
     width: 447px;
     height: 400px;
     margin-left: 0px;
-    background: url('../images/logo.png') center no-repeat;
+    position: relative;
+    
+    background: rgba(0,0,0,0) center no-repeat;
+    
+    overflow: hidden;    
 }
 
 .info .about {
@@ -82,14 +88,10 @@ html, body {
     font-weight: bold;
 }
 
-.info .about .text {
+.info .about .text, .info .about div.contacts {
     font-size: 12px;
-    height: 220px;
+    height: 200px;
     border-bottom: 1px solid #cecece;
-}
-
-.info .about .text p {
-    font-size: 12px;
     margin-top: 20px;
 }
 
@@ -118,6 +120,14 @@ html, body {
     font-weight: bold;
     
     cursor: pointer;
+
+    white-space: nowrap;
+
+    text-decoration: none;
+}
+
+.buttons .back {
+    background: url('../images/button_bg_back.jpg');
 }
 
 .social {
@@ -151,7 +161,7 @@ html, body {
 .social .youtube:hover { background-position: 0 -888px; width: 24px; height: 24px; } 
 .social .youtube { background-position: 0 -962px; width: 24px; height: 24px; } 
 
-.contacts {
+a.contacts, a.back {
     margin-right: 0;
 }
 
@@ -160,14 +170,15 @@ a#back {
     left: 45px;
     top: 40px;
     width: 28px;
-    height: 25px;
+    height: 28px;
     background: url(../images/back.png);
-    background-position: 0 -75px;
+    background-position: 0 0;
     cursor: pointer;
+    z-index: 8;
 }
 
 a#back:hover {
-    background-position: 0 0;
+    background-position: 0 -78px;
 }
 
 #companies {
@@ -211,11 +222,12 @@ a#back:hover {
 }
 
 .company .image {
-    width: 132px;
-    height: 44px;
     -webkit-border-radius: 7px;
     -moz-border-radius: 7px;
     border-radius: 7px;
+    
+    max-height: 50px;
+    max-width: 133px;
     
     behavior: url(PIE.htc);
     -pie-lazy-init:true; 
@@ -240,3 +252,4 @@ a#back:hover {
     right: 100px;
     font-size: 10px;
 }
+
