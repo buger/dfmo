@@ -33,7 +33,7 @@ class AppHandler(webapp.RequestHandler):
 
             os.environ['i18n_lang'] = lang
         else:
-            os.environ['i18n_lang'] = 'ru'
+            os.environ['i18n_lang'] = 'en'
 
         return os.environ['i18n_lang']
 
@@ -71,17 +71,22 @@ class AdminPage(AppHandler):
 
 class MainPage(AppHandler):
     def get(self):
-        key = "home_page_"+self.guess_lang()
+        show_site = self.request.get('show_site')
 
-        cache = memcache.get(key)
-
-        if cache:
-            self.response.out.write(cache)
+        if show_site != '1':
+            self.render_template("underconstruction.html")
         else:
-            companies = Company.all().order("__key__").fetch(100)
-            html = self.render_template("index.html", {'companies': companies})
+            key = "home_page_"+self.guess_lang()
 
-            memcache.set(key, html)
+            cache = memcache.get(key)
+
+            if cache:
+                self.response.out.write(cache)
+            else:
+                companies = Company.all().order("__key__").fetch(100)
+                html = self.render_template("index.html", {'companies': companies})
+
+                memcache.set(key, html)
 
 
 class AddCompany(AppHandler):
