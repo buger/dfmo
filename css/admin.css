@@ -96,3 +96,53 @@
 .file_loader.filtered .hidden {
     display: none;
 }
+
+#meta_tags {
+    position: absolute;
+    right: 5px;
+    background: white;
+
+    cursor: pointer;
+
+    padding: 5px;
+}
+
+#meta_tags > span {
+    font-weight: bold;
+}
+
+#meta_tags div {
+    display: none;
+    position: absolute;
+    top: 22px;
+    right: -5px;
+    width: 400px;
+    padding: 10px;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    background: white;
+    font-size: 13px;
+}
+
+#meta_tags:hover div {
+    display: block;
+}
+
+#meta_tags br {
+    padding: 5px;
+}
+
+#meta_tags div label {
+    display: inline-block;
+    width: 80px;    
+    margin-right: 10px;
+    font-weight: bold;
+    text-align: right;    
+    line-height: 30px;
+}
+
+#meta_tags div span {
+    display: inline-block;    
+    width: 300px;
+    padding: 3px;
+}

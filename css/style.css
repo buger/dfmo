@@ -4,14 +4,14 @@ html, body {
 }
 
 html {
-    background: rgba(0,0,0,0.7) url('../images/bg_1.jpg') center;
+    
     position: relative;
 }
 
 #float {
     width: 1px;
     height: 50%;
-    margin-bottom: -400px;
+    margin-bottom: -300px;
     float: left;
 }
 
@@ -46,8 +46,8 @@ html {
 #bg {
     height: 100%; 
     position: relative;
-    padding-top: 20px;
-    padding-bottom: 90px;
+    padding-top: 5px;
+    padding-bottom: 50px;
 }
 
 #content {
@@ -91,6 +91,8 @@ html {
     height: 200px;
     border-bottom: 1px solid #cecece;
     margin-top: 20px;
+    overflow: hidden;
+    overflow-y: auto;        
 }
 
 .info .buttons {
@@ -159,8 +161,18 @@ html {
 .social .youtube:hover { background-position: 0 -888px; width: 24px; height: 24px; } 
 .social .youtube { background-position: 0 -962px; width: 24px; height: 24px; } 
 
+.social .unknown { background: url(/favicon.png) center no-repeat; width: 24px; height: 24px; } 
+
 a.contacts, a.back {
     margin-right: 0;
+}
+
+.social .add_link {
+    background: none;
+    margin: 0;
+    text-indent: 0px;
+    color: green;
+    height: 12px;
 }
 
 a#back {
@@ -250,7 +262,7 @@ a#back:hover {
 #copyright {
     position: absolute;
     bottom: 20px;
-    right: 100px;
+    right: 50px;
     font-size: 10px;
 }
 

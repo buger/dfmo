@@ -24,9 +24,18 @@ handlers:
   static_files: favicon.png
   upload: favicon.png
 
-- url: /.*
+- url: /
   script: main_handler.py
+
+- url: /media/.*
+  script: main_handler.py
+
+- url: /admin
+  script: main_handler.py
+  login: admin
 
 - url: /admin/.*
   script: main_handler.py
   login: admin
+
+

@@ -34,7 +34,7 @@ def file_url(file_id):
     file_entry = FileEntry.get_by_key_name(file_id)
 
     if file_entry is None:
-        return "/images/empty.gif?file_id="+file_id
+        return "/images/empty.gif#file_id="+file_id
     else:
-        return file_entry.url+"?file_id="+file_id
+        return file_entry.url+"#file_id="+file_id
 

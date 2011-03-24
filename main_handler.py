@@ -52,7 +52,8 @@ class AppHandler(webapp.RequestHandler):
 
         html = template.render(path, data)
 
-        self.response.out.write(html)
+        if not data.has_key('dont_render'):
+            self.response.out.write(html)
 
         return html
 
@@ -62,11 +63,21 @@ class AppHandler(webapp.RequestHandler):
         self.response.out.write(json.dumps(data))
 
 
+re_bg = re.compile('@@background@@')
+
 class AdminPage(AppHandler):
     def get(self):
-        companies = Company.all().order("__key__").fetch(100)
+        companies = Company.all().order("order").fetch(100)
+        social_networks = SocialLink.all().order("created").filter("company =",0).fetch(20)
 
-        self.render_template("index.html", {'companies': companies, 'admin': True})
+        for company in companies:
+            company.social_networks = SocialLink.all().order('created').filter("company =", company.key().id()).fetch(20)
+
+        html = self.render_template("index.html", {'companies': companies, 'social_networks': social_networks, 'admin': True, 'dont_render': True})
+        html = re_bg.sub(str(random.randint(0,2)), html)
+
+        self.response.out.write(html)
+
 
 
 class MainPage(AppHandler):
@@ -74,19 +85,31 @@ class MainPage(AppHandler):
         show_site = self.request.get('show_site')
 
         if show_site != '1':
-            self.render_template("underconstruction.html")
+            html = self.render_template("underconstruction.html", {'dont_render': True});
+            html = re_bg.sub(str(random.randint(0,2)), html)
+
+            self.response.out.write(html)
         else:
             key = "home_page_"+self.guess_lang()
 
             cache = memcache.get(key)
 
             if cache:
+                cache = re_bg.sub(str(random.randint(0,2)), cache)
                 self.response.out.write(cache)
             else:
-                companies = Company.all().order("__key__").fetch(100)
-                html = self.render_template("index.html", {'companies': companies})
+                companies = Company.all().order("order").fetch(100)
+                social_networks = SocialLink.all().filter("company =",0).order("created").fetch(20)
 
+                for company in companies:
+                    company.social_networks = SocialLink.all().order('created').filter("company =", company.key().id()).fetch(20)
+
+                html = self.render_template("index.html", {'companies': companies, 'social_networks': social_networks, 'dont_render':True})
                 memcache.set(key, html)
+
+                html = re_bg.sub(str(random.randint(0,2)), html)
+                self.response.out.write(html)
+
 
 
 class AddCompany(AppHandler):
@@ -94,6 +117,56 @@ class AddCompany(AppHandler):
         Company().put()
 
         self.redirect("/admin")
+
+
+class AdminLink(AppHandler):
+    def post(self):
+        try:
+            company = int(self.request.get('company'))
+        except:
+            company = 0
+
+        url = self.request.get('url')
+        link_type = self.request.get('link_type')
+
+        SocialLink(url = url, link_type = link_type, company = company).put()
+
+        language = self.request.get('language')
+        memcache.delete('home_page_'+language)
+
+
+class AdminDeleteLink(AppHandler):
+    def post(self):
+        try:
+            company = int(self.request.get('company'))
+        except:
+            company = 0
+
+        url = self.request.get('url')
+
+        links = SocialLink.all().filter("company =", company).filter("url =",url).fetch(5)
+        db.delete(links)
+
+        if url[-1:] == '/':
+            links = SocialLink.all().filter("company =", company).filter("url =",url[:-1]).fetch(5)
+            db.delete(links)
+
+        language = self.request.get('language')
+        memcache.delete('home_page_'+language)
+
+
+
+class AdminCompanyOrder(AppHandler):
+    def post(self):
+        data = json.loads(self.request.get('data'))
+
+        for idx, key in enumerate(data):
+            company = Company.get_by_id(key)
+            company.order = idx
+            company.put()
+
+        language = self.request.get('language')
+        memcache.delete('home_page_'+language)
 
 
 class AdminUpdate(AppHandler):
@@ -149,6 +222,7 @@ class UploadHandler(blobstore_handlers.BlobstoreUploadHandler):
 class ServeHandler(blobstore_handlers.BlobstoreDownloadHandler):
     def get(self, blob_key):
         blob_key = str(urllib.unquote(blob_key))
+
         if not blobstore.get(blob_key):
             self.error(404)
         else:
@@ -192,6 +266,9 @@ application = webapp.WSGIApplication(
                                       ('/admin', AdminPage),
                                       ('/admin/add_company', AddCompany),
                                       ('/admin/update', AdminUpdate),
+                                      ('/admin/company_order', AdminCompanyOrder),
+                                      ('/admin/add_link', AdminLink),
+                                      ('/admin/delete_link', AdminDeleteLink),
                                       ('/admin/upload_url', UploadURLsHandler),
                                       ('/upload', UploadHandler),
                                       ('/media/([^/]+)?', ServeHandler),

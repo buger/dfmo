@@ -1,18 +1,21 @@
 <!DOCTYPE HTML>
-<html lang="{{lang}}">
-	<head>
+<html lang="{{lang}}" style="background: rgba(0,0,0,0.7) url('../images/bg_@@background@@.jpg') center">
+    <head>
+        <title>{{ "Meta Title"|i18n:admin }}</title>        
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
         <meta http-equiv="content-language" content="{{lang}}">
+        <meta name="keywords" content="{{ "Meta Keywords"|i18n:admin }}">
+        <meta name="description" content="{{ "Meta Description"|i18n:admin }}">
 
         <link rel="shortcut icon" type="image/png" href="/favicon.png" />
 
 		<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.3.0/build/cssreset/reset-min.css">
 		<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.3.0/build/cssfonts/fonts-min.css">
         
-        <link rel="stylesheet" href="/css/style.css?id=2" />
+        <link rel="stylesheet" href="/css/style.css?id=5" />
         {% if admin %}
-        <link rel="stylesheet" href="/css/admin.css" />
+        <link rel="stylesheet" href="/css/admin.css?id=2" />
         {% endif %}
 	</head>
     <body>
@@ -21,6 +24,17 @@
             <input type="button" value="Save Changes" id="save_page" />
             <input type="file" name="file" value="Upload Files" id="upload_files" onload="onFileLoad(this)" multiple />
             <span id="progress"></span>
+
+            <a id="meta_tags">
+                <span>Page meta tags</span>
+                <div>
+                    <label>Title</label><span class="editable">{{ "Meta Title"|i18n:admin }}</span>
+                    <br/>
+                    <label>Keywords</label><span class="editable">{{ "Meta Keywords"|i18n:admin }}</span>
+                    </br>
+                    <label>Description</label><span class="editable">{{ "Meta Description"|i18n:admin }}</span>
+                </div>
+            </a>
         </div>
         {% endif %}        
         <div id="bg">
@@ -47,13 +61,12 @@
                                 <a class="button back" onclick="toggleContacts()" style="display:none">back</a>
                             </div>
                             <div class="social">
-                                <a class="myspace" title="Myspace"></a>
-                                <a class="youtube" title="Youtube"></a>
-                                <a class="facebook" title="Facebook"></a>
-                                <a class="flickr" title="Flickr"></a>
-                                <a class="lastfm" title="Last.fm"></a>
-                                <a class="digg" title="Digg"></a>
-                                <a class="twitter" title="Twitter"></a>
+                                {% for link in social_networks %}
+                                    <a class="{{link.link_type}}" href="{{link.url}}"></a>
+                                {% endfor %}
+                                {% if admin %}
+                                <a class="add_link">Add</a>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
@@ -71,13 +84,12 @@
                                 <a class="button back" style="display: none" onclick="toggleContacts({{company.key.id}})">back</a>
                             </div>
                             <div class="social">
-                                <a class="myspace" title="Myspace"></a>
-                                <a class="youtube" title="Youtube"></a>
-                                <a class="facebook" title="Facebook"></a>
-                                <a class="flickr" title="Flickr"></a>
-                                <a class="lastfm" title="Last.fm"></a>
-                                <a class="digg" title="Digg"></a>
-                                <a class="twitter" title="Twitter"></a>
+                                {% for link in company.social_networks %}
+                                    <a class="{{link.link_type}}" href="{{link.url}}"></a>
+                                {% endfor %}
+                                {% if admin %}
+                                <a class="add_link" data-company="{{company.key.id}}">Add</a>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
@@ -94,21 +106,22 @@
                         {% endfor %}
                         {% if admin %}
                             <div class="company">
-                                <a href="/admin/add_company" id="add_company">Add Company</a>                                
+                                <a href="/admin/add_company" id="add_company">Add Company</a>
                             </div>
                         {% endif %}
                         </div>
                         <div style="clear: both"></div>
                     </div>
-                    <div id="copyright">© <script>document.write(new Date().getFullYear())</script> DF Music Organization. All right reserved, St. Petersburg, Russiaт Federation. All labels and logotypes are official trademarks of DF Music Organization. All rights reserved.</div>
+                    <div id="copyright">© <script>document.write(new Date().getFullYear())</script> DF Music Organization. All labels and logotypes are official trademarks of DF Music Organization. All rights reserved.</div>
                 </div>
             </div>
         </div>
 		
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>        
         <script src="/js/application.js"></script>
         {% if admin %}
-        <script src="/js/admin.js?id=1"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.10/jquery-ui.min.js"></script>
+        <script src="/js/admin.js?id=3"></script>
         {% endif %}
 	</body>
 </html>

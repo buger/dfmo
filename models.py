@@ -6,10 +6,15 @@ class i18nEntry(db.Model):
     language = db.StringProperty()
     data = db.TextProperty()
 
+class SocialLink(db.Model):
+    url = db.StringProperty()
+    link_type = db.StringProperty()
+    company = db.IntegerProperty()
+    created = db.DateTimeProperty(auto_now_add = True)
 
 class Company(db.Model):
-    pass
-
+    order = db.IntegerProperty(default=999)
 
 class FileEntry(db.Model):
-    url = db.StringProperty();
+    url = db.StringProperty()
+

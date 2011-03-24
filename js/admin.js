@@ -44,7 +44,68 @@ function setImageUrl(node, src) {
     }
 }
 
-$(document).ready(function(){    
+$(document).ready(function(){ 
+    $('#companies .container').sortable({
+        stop: function(evt, ui) {
+            var keys = $('#companies .company[data-index]').map(function(idx, el){
+                return $(el).data('index');
+            });
+            
+            $.ajax({
+                url: "/admin/company_order",
+                type: "POST",
+                data: {'data':JSON.stringify(keys.toArray()), language: getPageLanguage()}                
+            });
+        }
+    });
+
+    $('.social a').live('click', function(){
+        var link = $(this);
+
+        if (!link.hasClass('add_link')) {
+            if (confirm("Delete link "+this.href+"?")) {
+                $.ajax({
+                    url: "/admin/delete_link",
+                    type: "POST",
+                    data: {'url':this.href, company: link.next('.add_link').data('company'), language: getPageLanguage()}                
+                }).success(function(){
+                    link.remove();    
+                });
+            }
+
+            return false;
+        }
+    });
+
+    $('.add_link').live('click', function(){
+        var link = $(this);
+
+        var url = prompt("Specify link","");
+
+        if (!url)
+            return;
+        
+        var link_type = url.match(/facebook\.com/) ? "facebook" :
+                        url.match(/myspace/) ? "myspace" :
+                        url.match(/youtube/) ? "youtube" :
+                        url.match(/flickr/) ? "flickr" :
+                        url.match(/last\.fm/) ? "lastfm" :
+                        url.match(/lastfm/) ? "lastfm" :
+                        url.match(/twitter/) ? "twitter" :
+                        url.match(/digg/) ? "digg" :
+                        "unknown";
+
+        console.log("Url:", url)
+
+        $.ajax({
+            url: "/admin/add_link",
+            type: "POST",
+            data: {company: link.data('company'), url: url, link_type: link_type, language: getPageLanguage()}
+        }).success(function(){
+            $('<a class="'+link_type+'" href="'+url+'" target="_blank"></a>').insertBefore(link);
+        });
+    });
+
     if (!window.navigator.userAgent.match(/(Chrome|Mozilla)/)) {
         $('#admin-panel').html('Your browser is not supported. Use Chrome or Firefox');
         return false;
