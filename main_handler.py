@@ -218,6 +218,9 @@ class UploadHandler(blobstore_handlers.BlobstoreUploadHandler):
     def post(self):
         self.error(301)
 
+    def get(self):
+        self.error(301)
+
 
 class ServeHandler(blobstore_handlers.BlobstoreDownloadHandler):
     def get(self, blob_key):

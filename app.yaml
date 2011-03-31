@@ -38,4 +38,6 @@ handlers:
   script: main_handler.py
   login: admin
 
-
+- url: /upload
+  script: main_handler.py
+  login: admin

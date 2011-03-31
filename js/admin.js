@@ -208,9 +208,11 @@ $(document).ready(function(){
             link.appendTo(image)
                 .css({top: -18, left:0});
 
-            image.bind('click', function(evt){
-               return false;
-            });
+            if (isFile) {
+                image.bind('click', function(evt){
+                   return false;
+                });
+            }
         }
     });
     
