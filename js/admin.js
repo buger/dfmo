@@ -194,16 +194,23 @@ $(document).ready(function(){
         image.data('file_id', file_id);
 
         var link = $("<a class='edit_image' title='Change Image'></a>")        
-            .bind('click', function(){
+            .bind('click', function(evt){
+                evt.stopPropagation();
+                evt.preventDefault();
                 showFileChooser(image)       
             });
 
-        if (isFile || image[0].nodeName === 'IMG') {
+        if (image[0].nodeName === 'IMG') {
             link.appendTo(document.body)
                 .css({top: offset.top-16, left:offset.left});
         } else {
+            image.css({position:'relative'});
             link.appendTo(image)
-                .css({top: -16, left:0});
+                .css({top: -18, left:0});
+
+            image.bind('click', function(evt){
+               return false;
+            });
         }
     });
     
