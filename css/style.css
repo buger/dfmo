@@ -4,14 +4,15 @@ html, body {
 }
 
 html {
-    
     position: relative;
+    background-position: center;
+    background-color: rgba(0,0,0,0.7);
 }
 
 #float {
     width: 1px;
     height: 50%;
-    margin-bottom: -300px;
+    margin-bottom: -380px;
     float: left;
 }
 
@@ -70,7 +71,9 @@ html {
     margin-left: 0px;
     position: relative;
     
-    background: rgba(0,0,0,0) center no-repeat;
+    background-color: rgba(0,0,0,0);
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .info .about {
@@ -89,19 +92,25 @@ html {
 .info .about .text, .info .about div.contacts {
     font-size: 12px;
     height: 200px;
-    border-bottom: 1px solid #cecece;
-    margin-top: 20px;
+    margin-top: 17px;
     overflow: hidden;
-    overflow-y: auto;        
+    overflow-y: auto;  
+
+    text-shadow: 0.7px 0.7px 1px #eee;
+    line-height: 130%;
 }
 
 .info .buttons {
     margin-top: 10px;
+    text-align: center;
+    border-bottom: 1px solid #cecece;
+
+    padding-bottom: 14px;
 }
 
 
 .button {
-    background: url('../images/button_bg.jpg');
+    background: url('../images/button_bg.jpg') top left;
     width: 114px;
     padding: 8px 0px;
     text-align: center;
@@ -116,6 +125,7 @@ html {
     behavior: url(PIE.htc);
     
     font-size: 16px;
+    line-height: 100%;
     color: white;
     font-weight: bold;
     
@@ -131,7 +141,7 @@ html {
 }
 
 .social {
-    margin-top: 28px;
+    margin-top: 14px;
     text-align: center;
 }
 
@@ -160,6 +170,10 @@ html {
 .social .twitter { background-position: 0 -814px; width: 24px; height: 24px; } 
 .social .youtube:hover { background-position: 0 -888px; width: 24px; height: 24px; } 
 .social .youtube { background-position: 0 -962px; width: 24px; height: 24px; } 
+
+.social .vkontakte:hover { background: url(/images/vkontakte.png?1) no-repeat; width: 24px; height: 24px; } 
+.social .vkontakte { background: url(/images/vkontakte_bw.png?5) no-repeat; width: 24px; height: 24px; } 
+
 
 .social .unknown { background: url(/favicon.png) center no-repeat; width: 24px; height: 24px; } 
 
@@ -229,6 +243,7 @@ a#back:hover {
     height: 75px;
     
     margin-right: 8px;
+    margin-bottom: 10px;
 }
 
 .company .image {
@@ -262,8 +277,10 @@ a#back:hover {
 #copyright {
     position: absolute;
     bottom: 20px;
-    right: 50px;
+    right: 0px;
     font-size: 10px;
+    width: 100%;
+    text-align: center;
 }
 
 #language {

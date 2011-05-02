@@ -2,6 +2,7 @@ from google.appengine.ext import webapp
 from google.appengine.ext import db
 
 import os
+import re
 
 from models import *
 
@@ -30,11 +31,20 @@ def cat(str1, str2):
 
 
 @register.filter
-def file_url(file_id):
+def file_url(file_id, allow_null = False):
     file_entry = FileEntry.get_by_key_name(file_id)
 
-    if file_entry is None:
-        return "/images/empty.gif#file_id="+file_id
+    if file_entry is None or file_entry.url == '':
+        if allow_null:
+            return None
+        else:
+            return "/images/empty.gif#file_id="+file_id
     else:
         return file_entry.url+"#file_id="+file_id
 
+
+rHOSTNAME = re.compile('^(?:f|ht)tp(?:s)?\:\/\/([^\/]+)');
+
+@register.filter
+def favicon(url):
+    return rHOSTNAME.match(url).group(0) + "/favicon.ico"

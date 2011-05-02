@@ -1,6 +1,9 @@
 <!DOCTYPE HTML>
-<html lang="{{lang}}" style="background: rgba(0,0,0,0.7) url('../images/bg_@@background@@.jpg') center">
+<html lang="{{lang}}" style="background-image: url('/images/bg_@@background@@.jpg')">
     <head>
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
         <title>{{ "Meta Title"|i18n:admin }}</title>        
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
@@ -13,15 +16,15 @@
 		<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.3.0/build/cssreset/reset-min.css">
 		<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.3.0/build/cssfonts/fonts-min.css">
         
-        <link rel="stylesheet" href="/css/style.css?id=5" />
+        <link rel="stylesheet" href="/css/style.css?id=19" />
         {% if admin %}
-        <link rel="stylesheet" href="/css/admin.css?id=2" />
+        <link rel="stylesheet" href="/css/admin.css?id=5" />
         {% endif %}
 	</head>
     <body>
         {% if admin %}
         <div id="admin-panel">
-            <input type="button" value="Save Changes" id="save_page" />
+            <input type="button" value="Сохранить изменения" id="save_page" />
             <input type="file" name="file" value="Upload Files" id="upload_files" onload="onFileLoad(this)" multiple />
             <span id="progress"></span>
 
@@ -55,14 +58,22 @@
                             <div class="text editable">{{ "DF Group Description"|i18n:admin }}</div>
                             <div class="contacts editable" style="display:none">{{ "Contacts home"|i18n:admin }}</div>                            
                             <div class="buttons">
+                                {% if admin or "logos_home_file"|file_url:1 %}
                                 <a class="button logos editable_file" href="{{"logos_home_file"|file_url}}">logos</a>
+                                {% endif %}
+                                {% if admin or "press_home"|file_url:1 %}                                
                                 <a class="button presskit editable_file" href="{{"press_home"|file_url}}">press kit</a>
+                                {% endif %}
                                 <a class="button contacts" onclick="toggleContacts()">contacts</a>
                                 <a class="button back" onclick="toggleContacts()" style="display:none">back</a>
                             </div>
                             <div class="social">
                                 {% for link in social_networks %}
+                                    {% ifequal link.link_type 'unknown' %}
+                                    <a class="{{link.link_type}}" href="{{link.url}}" style="background-image: url({{link.url|favicon}});"></a>
+                                    {% else %}
                                     <a class="{{link.link_type}}" href="{{link.url}}"></a>
+                                    {% endifequal %}
                                 {% endfor %}
                                 {% if admin %}
                                 <a class="add_link">Add</a>
@@ -72,20 +83,31 @@
                     </div>
                     {% for company in companies %}
                     <div class="info {{company.key.id}}" style="display: none">
+                        {% if admin %}
+                        <a href="/admin/delete_company/{{company.key.id}}" class="delete_company"><img src='/images/delete.png'/> Удалить компанию</a>
+                        {% endif %}
                         <div class="picture editable_image" style="background-image: url({{ "logo_"|cat:company.key.id|file_url }});"></div>
                         <div class="about">
                             <h1 class="editable">{{"Company "|cat:company.key.id|cat:" Header"|i18n:admin}}</h1>
                             <div class="text editable">{{"Company "|cat:company.key.id|cat:" Description"|i18n:admin}}</div>
                             <div class="contacts editable" style="display:none">{{ "Contacts "|cat:company.key.id|i18n:admin }}</div>
                             <div class="buttons">
+                                {% if admin or "logos_file"|cat:company.key.id|file_url:1 %}
                                 <a class="button logos editable_file" href="{{"logos_file"|cat:company.key.id|file_url}}">logos</a>
+                                {% endif %}
+                                {% if admin or "press_"|cat:company.key.id|file_url:1 %}
                                 <a class="button presskit editable_file" href="{{"press_"|cat:company.key.id|file_url}}">press kit</a>
+                                {% endif %}
                                 <a class="button contacts" onclick="toggleContacts({{company.key.id}})">contacts</a>
                                 <a class="button back" style="display: none" onclick="toggleContacts({{company.key.id}})">back</a>
                             </div>
                             <div class="social">
                                 {% for link in company.social_networks %}
+                                    {% ifequal link.link_type u'unknown' %}
+                                    <a class="{{link.link_type}}" href="{{link.url}}" style="background-image: url({{link.url|favicon}});"></a>
+                                    {% else %}
                                     <a class="{{link.link_type}}" href="{{link.url}}"></a>
+                                    {% endifequal %}
                                 {% endfor %}
                                 {% if admin %}
                                 <a class="add_link" data-company="{{company.key.id}}">Add</a>
@@ -118,10 +140,15 @@
         </div>
 		
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>        
-        <script src="/js/application.js"></script>
+        <script src="/js/application.js?id=5"></script>
+        <script>
+            $('html').css({
+               'background-image': "url('/images/bg_@@background@@.jpg')"
+            });
+        </script>
         {% if admin %}
         <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.10/jquery-ui.min.js"></script>
-        <script src="/js/admin.js?id=5"></script>
+        <script src="/js/admin.js?id=13"></script>
         {% endif %}
 	</body>
 </html>

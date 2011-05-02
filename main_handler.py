@@ -84,7 +84,7 @@ class MainPage(AppHandler):
     def get(self):
         show_site = self.request.get('show_site')
 
-        if show_site != '1':
+        if False and show_site != '1':
             html = self.render_template("underconstruction.html", {'dont_render': True});
             html = re_bg.sub(str(random.randint(0,2)), html)
 
@@ -118,6 +118,12 @@ class AddCompany(AppHandler):
 
         self.redirect("/admin")
 
+class DeleteCompany(AppHandler):
+    def get(self, company_id):
+        company = Company.get_by_id(int(company_id))
+        db.delete(company)
+
+        self.redirect("/admin")
 
 class AdminLink(AppHandler):
     def post(self):
@@ -255,7 +261,12 @@ class MediaListHandler(AppHandler):
                     data = blobstore.fetch_data(b.key(), 0, 50000)
                     image = images.Image(image_data = data)
 
-                    json.append({ 'src': str(b.key()), 'filename': b.filename, 'width': image.width, 'height': image.height})
+                    try:
+                        image_info = { 'src': str(b.key()), 'filename': b.filename, 'width': image.width, 'height': image.height}
+                    except:
+                        image_info = { 'src': str(b.key()), 'filename': b.filename }
+
+                    json.append(image_info)
             else:
                 if not re_image.match(b.content_type):
                     json.append({ 'src': str(b.key()), 'filename': b.filename})
@@ -268,6 +279,7 @@ application = webapp.WSGIApplication(
                                       ('/', MainPage),
                                       ('/admin', AdminPage),
                                       ('/admin/add_company', AddCompany),
+                                      ('/admin/delete_company/([^/]+)?', DeleteCompany),
                                       ('/admin/update', AdminUpdate),
                                       ('/admin/company_order', AdminCompanyOrder),
                                       ('/admin/add_link', AdminLink),

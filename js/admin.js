@@ -2,11 +2,24 @@ function getPageLanguage(){
     return $('meta[http-equiv="content-language"]').attr('content');
 }
 
-function convertText(text) {
-    text = text.replace(/\n/g,'<br/>');
-    text = text.replace(/http:\/\/[\w.]+/gi,"<a href='$&'>$&</a>");
+function convertText(el) {
+    var pre = document.createElement('pre');
+    var cloned = el.cloneNode(true);
+    pre.appendChild(cloned);
+    delete pre;
+    delete cloned;
+    
+    var textContent = pre.innerHTML
+            .replace(/<div><br><\/div>/, '\n')
+            .replace(/<div>/gi, '\n')
+            .replace(/<\/?br>/gi, '\n')
+            .replace(/<\/?[^>]+>/gi, '');
+    
 
-    return text
+    textContent = textContent.replace(/\n/g,'<br/>');
+    textContent = textContent.replace(/http:\/\/[\w.]+/gi,"<a href='$&'>$&</a>");
+
+    return textContent;
 }
 
 $('html').addClass('js');
@@ -26,7 +39,10 @@ function getImageUrl(node) {
         }
     }
     
-    url = url.replace(/\?.*/,'').replace(/'/,'').replace('"','');
+    url = url.replace(/\?.*/,'').replace(/'/,'').replace('"','').replace(/\#.*/,'');
+
+    if(url.match(/empty\.gif/))
+        url = '';
 
     return url
 }
@@ -46,6 +62,8 @@ function setImageUrl(node, src) {
 
 $(document).ready(function(){ 
     $('#companies .container').sortable({
+        delay: 300,
+        handle: ".image",
         stop: function(evt, ui) {
             var keys = $('#companies .company[data-index]').map(function(idx, el){
                 return $(el).data('index');
@@ -92,6 +110,7 @@ $(document).ready(function(){
                         url.match(/last\.fm/) ? "lastfm" :
                         url.match(/lastfm/) ? "lastfm" :
                         url.match(/twitter/) ? "twitter" :
+                        url.match(/vkontakte/) ? "vkontakte" :
                         url.match(/digg/) ? "digg" :
                         "unknown";
 
@@ -123,12 +142,12 @@ $(document).ready(function(){
 
         $(this).attr('contenteditable', true);
         } catch (e) {}
-    }).live('blur', function(){        
-        this.innerHTML = convertText(this.innerText || this.textContent);
+    }).live('blur', function(){       
+        this.innerHTML = convertText(this);
     });
 
     $('#save_page').live('click', function() {
-        this.value = 'Saving...'
+        this.value = 'Сохранение...'
 
         var messages = {};
         var files = {}
@@ -136,7 +155,7 @@ $(document).ready(function(){
         $('.editable').each(function() {
             var message_id = $(this).data('msg_id');                    
             if (message_id) {
-                messages[message_id] = convertText(this.innerText || this.textContent);
+                messages[message_id] = convertText(this);
             }
         });        
 
@@ -158,14 +177,22 @@ $(document).ready(function(){
                 files: JSON.stringify(files)
             }
         }).error(function(){
-            alert('Error while saving. Try again');    
+            alert('Возникла ошибка при сохранении');    
         }).success(function(){
-            $('#save_page').val('Save Changes').attr('disabled', false);    
+            $('#save_page').val('Сохранить изменения').attr('disabled', false);    
         });
     });    
     
     $('#add_company').live('click', function() {
-        if (confirm('Please save your changes, before adding new Company. Page will be reloaded. Continue?')) {
+        if (confirm('Сохраните ваши изменения перед добавлением новой компании. Страница будет перезагружена. Продолжить?')) {
+            return true;
+        } else {
+            return false;
+        }
+    });
+
+    $('.delete_company').live('click', function() {
+        if (confirm('Сохраните ваши изменения перед удалением компании. Страница будет перезагружена. Продолжить?')) {
             return true;
         } else {
             return false;
@@ -234,7 +261,7 @@ $(document).ready(function(){
                     }
                 }
                 
-                $('#progress').html('Uploading files...');
+                $('#progress').html('Загрузка...');
 
                 xhr.open('POST', urls[0], true);
                

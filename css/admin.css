@@ -146,3 +146,14 @@
     width: 300px;
     padding: 3px;
 }
+
+.delete_company {
+    text-decoration: none;
+    position: absolute;
+    top: 20px;
+    left: 100px;
+}
+
+.delete_company img {
+    vertical-align: middle;
+}
