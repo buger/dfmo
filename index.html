@@ -16,7 +16,7 @@
 		<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.3.0/build/cssreset/reset-min.css">
 		<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.3.0/build/cssfonts/fonts-min.css">
         
-        <link rel="stylesheet" href="/css/style.css?id=19" />
+        <link rel="stylesheet" href="/css/style.css?id=31" />
         {% if admin %}
         <link rel="stylesheet" href="/css/admin.css?id=5" />
         {% endif %}
@@ -70,7 +70,7 @@
                             <div class="social">
                                 {% for link in social_networks %}
                                     {% ifequal link.link_type 'unknown' %}
-                                    <a class="{{link.link_type}}" href="{{link.url}}" style="background-image: url({{link.url|favicon}});"></a>
+                                    <a class="{{link.link_type}}" href="{{link.url}}"><img src='{{link.url|favicon}}' width=16 height=16/><span></span></a>
                                     {% else %}
                                     <a class="{{link.link_type}}" href="{{link.url}}"></a>
                                     {% endifequal %}
@@ -103,8 +103,11 @@
                             </div>
                             <div class="social">
                                 {% for link in company.social_networks %}
-                                    {% ifequal link.link_type u'unknown' %}
-                                    <a class="{{link.link_type}}" href="{{link.url}}" style="background-image: url({{link.url|favicon}});"></a>
+                                    {% ifequal link.link_type 'unknown' %}
+                                    <a class="{{link.link_type}}" href="{{link.url}}">
+                                        <img src='{{link.url|favicon}}' width=16 height=16/>
+                                        <span></span>
+                                    </a>
                                     {% else %}
                                     <a class="{{link.link_type}}" href="{{link.url}}"></a>
                                     {% endifequal %}

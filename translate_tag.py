@@ -44,7 +44,14 @@ def file_url(file_id, allow_null = False):
 
 
 rHOSTNAME = re.compile('^(?:f|ht)tp(?:s)?\:\/\/([^\/]+)');
+rPROTOCOL = re.compile('http://');
 
 @register.filter
 def favicon(url):
-    return rHOSTNAME.match(url).group(0) + "/favicon.ico"
+    try:
+        domain = rHOSTNAME.match(url).group(0)
+        domain = rPROTOCOL.sub('', domain)
+
+        return "http://www.google.com/s2/favicons?domain=" + domain
+    except:
+        return "http://www.google.com/s2/favicons?domain=www.formspring.me"

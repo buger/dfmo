@@ -36,6 +36,7 @@ html {
     border-bottom-left-radius: 10px;
 
     behavior: url(PIE.htc);
+    -pie-poll: false;
     
     -moz-box-shadow: 0 0 10px 5px #111;
     -webkit-box-shadow: 0 0 10px 5px #111;
@@ -111,6 +112,8 @@ html {
 
 .button {
     background: url('../images/button_bg.jpg') top left;
+    position: relative;
+    display: inline-block;
     width: 114px;
     padding: 8px 0px;
     text-align: center;
@@ -123,9 +126,11 @@ html {
     border-radius: 7px;
     
     behavior: url(PIE.htc);
+    -pie-poll: false;
     
     font-size: 16px;
-    line-height: 100%;
+    height: 18px;
+    line-height: 18px;
     color: white;
     font-weight: bold;
     
@@ -171,11 +176,69 @@ html {
 .social .youtube:hover { background-position: 0 -888px; width: 24px; height: 24px; } 
 .social .youtube { background-position: 0 -962px; width: 24px; height: 24px; } 
 
-.social .vkontakte:hover { background: url(/images/vkontakte.png?1) no-repeat; width: 24px; height: 24px; } 
-.social .vkontakte { background: url(/images/vkontakte_bw.png?5) no-repeat; width: 24px; height: 24px; } 
+.social .vkontakte:hover { background: url(/images/vkontakte.png?1) no-repeat; width: 24px; height: 24px; border-radius: 4px; } 
+.social .vkontakte { background: url(/images/vkontakte_bw.png?5) no-repeat; width: 24px; height: 24px; border-radius: 4px;} 
 
+.social .alivenotdead:hover { background: url(/images/2.png?1) no-repeat; width: 24px; height: 24px; border-radius: 4px; } 
+.social .alivenotdead { background: url(/images/2_bw.png?5) no-repeat; width: 24px; height: 24px; border-radius: 4px;} 
 
-.social .unknown { background: url(/favicon.png) center no-repeat; width: 24px; height: 24px; } 
+.social .dtf:hover { background: url(/images/1.png?1) no-repeat; width: 24px; height: 24px; border-radius: 4px; } 
+.social .dtf { background: url(/images/1_bw.png?5) no-repeat; width: 24px; height: 24px; border-radius: 4px;} 
+
+.social .formspring:hover { background: url(/images/3.png?4) no-repeat; width: 24px; height: 24px; border-radius: 4px; } 
+.social .formspring { background: url(/images/3_bw.png?4) no-repeat; width: 24px; height: 24px; border-radius: 4px; } 
+
+.social .uni:hover { background: url(/images/4.png?5) no-repeat; width: 24px; height: 24px; border-radius: 4px;} 
+.social .uni { background: url(/images/4_bw.png?5) no-repeat; width: 24px; height: 24px; border-radius: 4px;} 
+
+.social .unknown { 
+    width: 24px; height: 24px; 
+    background: #bbb;
+    border-radius: 4px;
+    text-indent: 0px;
+    position: relative;
+
+background-image: -webkit-gradient(
+    linear,
+    left bottom,
+    left top,
+    color-stop(0.82, rgb(196,196,196)),
+    color-stop(0.17, rgb(133,133,133))
+);
+background-image: -moz-linear-gradient(
+    center bottom,
+    rgb(196,196,196) 82%,
+    rgb(133,133,133) 17%
+);    
+}
+
+.social .unknown img {
+    border-radius:4px;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    
+}
+
+.social .unknown span {
+	background-color: #000000;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 24px;
+	height: 24px;
+	z-index: 100;
+	filter: alpha(opacity=20);
+	-moz-opacity: 0.2;
+	opacity: 0.2;
+    border-radius:4px;
+}
+
+.social .unknown:hover span {
+    display: none;
+}
 
 a.contacts, a.back {
     margin-right: 0;
@@ -216,6 +279,7 @@ a#back:hover {
     border-radius: 7px;
 
     behavior: url(PIE.htc);
+    -pie-poll: false;
 
     position: relative;
 }
@@ -243,7 +307,7 @@ a#back:hover {
     height: 75px;
     
     margin-right: 8px;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
 
 .company .image {
@@ -257,7 +321,7 @@ a#back:hover {
     width: 132px;
 
     behavior: url(PIE.htc);
-    -pie-lazy-init:true; 
+    -pie-poll: false;
     
     -moz-box-shadow: 1px 1px 3px #888;
     -webkit-box-shadow: 1px 1px 3px #888;
